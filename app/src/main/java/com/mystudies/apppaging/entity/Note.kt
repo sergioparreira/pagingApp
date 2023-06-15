@@ -5,8 +5,8 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-data class Notice(
-    @PrimaryKey val id: Long,
+data class Note(
+    @PrimaryKey(autoGenerate = true) val id: Long,
     @ColumnInfo(name = "title") val title: String?,
     @ColumnInfo(name = "msg_notice") val msgNotice: String?
 )

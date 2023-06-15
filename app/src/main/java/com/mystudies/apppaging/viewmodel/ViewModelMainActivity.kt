@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.room.Room
 import com.mystudies.apppaging.database.DataBase
-import com.mystudies.apppaging.entity.Notice
+import com.mystudies.apppaging.entity.Note
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -31,7 +31,7 @@ class ViewModelMainActivity : ViewModel() {
     }
 
 
-    fun insertNotices(context: Context) {
+    fun insertNote(context: Context, note: Note) {
         viewModelScope.launch {
             try {
                 withContext(Dispatchers.IO) {
@@ -39,12 +39,7 @@ class ViewModelMainActivity : ViewModel() {
                         context,
                         DataBase::class.java, "paging-database"
                     ).build()
-                    //  val listNotice = mutableListOf<Notice>()
-                    repeat(20) {
-                        //listNotice.add(Notice(it.toLong(), "Teste $it", "teste $it teste $it"))
-                        db.noticeDao()
-                            .insertAll(Notice(it.toLong(), "Teste $it", "teste $it teste $it"))
-                    }
+                    db.noticeDao().insertAll(note)
                 }
             } catch (e: Exception) {
                 Log.e("ERROLOAD", "${e.message} - message")
